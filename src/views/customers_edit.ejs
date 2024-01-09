@@ -1,0 +1,84 @@
+<%- include("partials/_header") %>
+
+<div class="container mt-6">
+  <div class="row">
+    <div class="col-md-6 offset-md-4 card bg-dark">
+      <div class="card-body">
+        <div class="class row">
+          <div class="col-md-4">
+            <img src="https://images.vexels.com/media/users/3/153639/isolated/lists/124d6bbf264ff5ea366ca7bd5a8cfdb5-icono-de-trazo-de-color-de-configuracion-de-cliente.png" alt="Descripción de la imagen" class="img-fluid mb-3" />
+          </div>
+          <div class="col-md-8">
+            <form action="/update/<%= customer.id %>" method="POST" onsubmit="return validateForm()">
+              <h4>Nombres:</h4>
+              <input
+                type="text"
+                name="name"
+                value="<%= customer.name %>"
+                placeholder="Nombre:"
+                class="form-control mb-3"
+                autofocus
+                pattern="[A-Za-z ]+" <!-- Aceptar solo letras y espacios -->
+
+              <h4>E-mail</h4>
+              <input
+                type="email"
+                name="address"
+                value="<%= customer.address %>"
+                placeholder="E-mail:"
+                class="form-control mb-3"
+                required
+              />
+              <h4>Telefono:</h4>
+              <input
+                type="tel"
+                name="phone"
+                value="<%= customer.phone %>"
+                placeholder="Teléfono:"
+                class="form-control mb-3"
+                pattern="[0-9]+" <!-- Aceptar solo números -->
+
+
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function validateForm() {
+    const name = document.getElementsByName('name')[0].value;
+    const address = document.getElementsByName('address')[0].value;
+    const phone = document.getElementsByName('phone')[0].value;
+
+    const namePattern = /^[A-Za-z ]+$/;
+    const phonePattern = /^[0-9]+$/;
+
+    if (!namePattern.test(name)) {
+      alert('Por favor, ingresa solo letras y espacios para el nombre.');
+      return false;
+    }
+
+    if (!phonePattern.test(phone)) {
+      alert('Por favor, ingresa solo números para el teléfono.');
+      return false;
+    }
+
+    if (address.trim() === '' || phone.trim() === '') {
+      alert('Por favor, rellena todos los campos.');
+      return false;
+    }
+
+    return true;
+  }
+</script>
+
+<%- include("partials/_footer") %>
